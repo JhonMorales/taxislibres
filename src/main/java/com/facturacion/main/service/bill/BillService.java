@@ -7,4 +7,7 @@ import java.util.Set;
 public interface BillService {
     Bill getByIdBill(Long id);
     Set<Bill> getByIdUser(Long id);
+
+    Bill saveBill(Bill bill);
+    void deleteByIdBill(Long id);
 }

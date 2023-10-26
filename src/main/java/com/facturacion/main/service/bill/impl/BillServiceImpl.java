@@ -23,4 +23,14 @@ public class BillServiceImpl implements BillService {
     public Set<Bill> getByIdUser(Long id) {
         return billRepository.findByUserIdUser(id);
     }
+
+    @Override
+    public Bill saveBill(Bill bill) {
+        return billRepository.save(bill);
+    }
+
+    @Override
+    public void deleteByIdBill(Long id) {
+        billRepository.deleteById(id);
+    }
 }

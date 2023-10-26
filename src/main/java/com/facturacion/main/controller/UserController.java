@@ -38,11 +38,13 @@ public class UserController {
         ).build();
     }
 
-    @GetMapping("/find")
+    @GetMapping
     public ResponseEntity<User> getByEmail(@RequestParam("email") String email){
         System.out.println(email);
         User findUser = userService.getUserByEmail(email);
         if (findUser == null) return ResponseEntity.notFound().build();
+        Set<Bill> billsByUser =billService.getByIdUser(findUser.getIdUser());
+        findUser.setBills(billsByUser);
         return ResponseEntity.ok(findUser);
     }
 
@@ -52,7 +54,6 @@ public class UserController {
         User findUser = userService.getUserById(id);
         if (findUser == null) return ResponseEntity.notFound().build();
         Set<Bill> billsByUser =billService.getByIdUser(findUser.getIdUser());
-        System.out.println(billsByUser.toString());
         findUser.setBills(billsByUser);
         return ResponseEntity.ok(findUser);
     }
