@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: "jdbc:postgresql://localhost:5432/taxislibres"
+    url: "jdbc:postgresql://taxislibres.clck1lk8ipgz.us-west-2.rds.amazonaws.com:5432/taxislibres"
     username: "postgres"
     password: "alexander1995"
     driver-class-name: org.postgresql.Driver
