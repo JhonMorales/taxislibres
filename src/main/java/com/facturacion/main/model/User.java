@@ -2,12 +2,14 @@ package com.facturacion.main.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name="users")
@@ -21,11 +23,12 @@ public class User {
     @Column(name = "name", length = 255)
     private String name;
     @Column(name = "age")
+    @NotNull
     @Positive
     private Integer age;
     @Column(name = "email")
     @Email
     private String email;
     @OneToMany(mappedBy = "user")
-    private List<Bill> bills;
+    private Set<Bill> bills;
 }
