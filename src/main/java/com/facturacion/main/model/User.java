@@ -1,18 +1,31 @@
 package com.facturacion.main.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Positive;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Entity
 @Table(name="users")
+@NoArgsConstructor
+@Data
+@AllArgsConstructor
 public class User {
     @Id
-    private Long id;
+    @GeneratedValue (strategy=GenerationType.IDENTITY)
+    private Long idUser;
+    @Column(name = "name", length = 255)
     private String name;
+    @Column(name = "age")
+    @Positive
     private Integer age;
+    @Column(name = "email")
+    @Email
     private String email;
+    @OneToMany(mappedBy = "user")
     private List<Bill> bills;
 }
