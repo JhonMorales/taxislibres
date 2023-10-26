@@ -13,3 +13,7 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
   entity-scan: com.facturacion.main.model
+logging:
+  level:
+    org:
+      springframework: DEBUG

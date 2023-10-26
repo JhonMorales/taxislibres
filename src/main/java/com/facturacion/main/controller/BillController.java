@@ -21,11 +21,8 @@ public class BillController {
 
     @GetMapping("{id}")
     public ResponseEntity<Bill> getById(@PathVariable("id") Long id){
-        System.out.println(id);
         Bill findBill = billService.getByIdBill(id);
-        if (findBill == null){
-            return ResponseEntity.notFound().build();
-        }
+        if (findBill == null) return ResponseEntity.notFound().build();
         return ResponseEntity.ok(findBill);
     }
 }

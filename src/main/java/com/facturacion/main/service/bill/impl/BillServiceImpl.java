@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
+
 @Service
 @Slf4j
 @AllArgsConstructor
@@ -14,6 +16,11 @@ public class BillServiceImpl implements BillService {
     private BillRepository billRepository;
     @Override
     public Bill getByIdBill(Long id) {
-        return billRepository.getByIdBill(id);
+        return billRepository.findByIdBill(id);
+    }
+
+    @Override
+    public Set<Bill> getByIdUser(Long id) {
+        return billRepository.findByUserIdUser(id);
     }
 }
