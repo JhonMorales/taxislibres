@@ -1,3 +1,13 @@
+## Used Tecnology
+Spring boot 3.1.5
+AWS RDS Postgres
+JPA
+JWT
+Lombok
+
+## Technical Debt
+Model Bill, field **desc** changed to **description**
+
 # Run project docker by url
 **docker build https://github.com/JhonMorales/taxislibres.git#master:. -t taxislibres:spring-boot**
 
