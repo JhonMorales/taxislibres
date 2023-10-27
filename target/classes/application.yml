@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    url: "jdbc:postgresql://taxislibres.clck1lk8ipgz.us-west-2.rds.amazonaws.com:5432/taxislibres"
+    username: "postgres"
+    password: "alexander1995"
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+  entity-scan: com.facturacion.main.model
+logging:
+  level:
+    org:
+      springframework: DEBUG
