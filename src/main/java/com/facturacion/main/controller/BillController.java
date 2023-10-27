@@ -56,8 +56,6 @@ public class BillController {
     @DeleteMapping("{idBill}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public ResponseEntity<Void> deleteBill(@PathVariable("idBill") Long id){
-        System.out.println("ID******************");
-        System.out.println(id);
         billService.deleteByIdBill(id);
         return ResponseEntity.noContent().build();
     }

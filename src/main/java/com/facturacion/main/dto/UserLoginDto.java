@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class UserLoginDto {
     @JsonIgnore
-    private String user;
+    private String email;
 
     @JsonIgnore
     private String pass;

@@ -1,8 +1,11 @@
 package com.facturacion.main.controller;
 
 import com.facturacion.main.dto.UserLoginDto;
+import com.facturacion.main.model.User;
 import com.facturacion.main.security.JWTAuthtenticationConfig;
+import com.facturacion.main.service.login.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,20 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class LoginController {
 
 	@Autowired
-	JWTAuthtenticationConfig jwtAuthtenticationConfig;
+	private LoginService loginService;
 
 	@PostMapping("login")
-	public UserLoginDto login(
-			@RequestParam("user") String username,
-			@RequestParam("encryptedPass") String encryptedPass) {
-
-		/**
-		 * En el ejemplo no se realiza la correcta validación del usuario
-		 */
-
-		String token = jwtAuthtenticationConfig.getJWTToken(username);
-		return new UserLoginDto(username, encryptedPass,token);
-		
+	public ResponseEntity<UserLoginDto> login(
+			@RequestParam("email") String email,
+			@RequestParam("password") String password) {
+		UserLoginDto getJwt = loginService.getJwt(email,password);
+		if (getJwt.getEmail() == null) return ResponseEntity.notFound().build();
+		return ResponseEntity.ok(getJwt);
 	}
-
 }

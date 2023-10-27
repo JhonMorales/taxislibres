@@ -1,8 +1,11 @@
 package com.facturacion.main.security;
 
 
+import com.facturacion.main.model.User;
+import com.facturacion.main.service.user.UserService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -16,14 +19,17 @@ import static com.facturacion.main.security.Constans.*;
 @Configuration
 public class JWTAuthtenticationConfig {
 
-    public String getJWTToken(String username) {
+    @Autowired
+    private UserService userService;
+
+    public String getJWTToken(String email) {
         List<GrantedAuthority> grantedAuthorities = AuthorityUtils
                 .commaSeparatedStringToAuthorityList("ROLE_NORMAL");
 
         String token = Jwts
                 .builder()
                 .setId("testJWT")
-                .setSubject(username)
+                .setSubject(email)
                 .claim("authorities",
                         grantedAuthorities.stream()
                                 .map(GrantedAuthority::getAuthority)
@@ -34,5 +40,4 @@ public class JWTAuthtenticationConfig {
 
         return "Bearer " + token;
     }
-
 }
