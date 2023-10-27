@@ -8,6 +8,7 @@ import com.facturacion.main.mappers.BillUpdateMapper;
 import com.facturacion.main.model.Bill;
 import com.facturacion.main.model.User;
 import com.facturacion.main.service.bill.BillService;
+import com.facturacion.main.service.user.UserService;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +28,9 @@ public class BillController {
     @Autowired
     private BillService billService;
 
+    @Autowired
+    private UserService userService;
+
     @GetMapping("{id}")
     public ResponseEntity<Bill> getById(@PathVariable("id") Long id){
         Bill findBill = billService.getByIdBill(id);
@@ -36,6 +40,8 @@ public class BillController {
 
     @PostMapping
     public ResponseEntity<User> createBill(@Valid @RequestBody BillSaveDto billDto, BindingResult bindingResult) {
+        User existsUser = userService.getUserById(billDto.getIdUser());
+        if (existsUser == null) return ResponseEntity.notFound().build();
         Bill bill = BillSaveMapper.mapToBill(billDto);
         Bill savedBill = billService.saveBill(bill);
         return ResponseEntity.created(
@@ -46,6 +52,8 @@ public class BillController {
     @PutMapping("{idBill}")
     public ResponseEntity<Bill> updateBill(@PathVariable("idBill") Long idBill,
                                            @Valid @RequestBody BillUpdateDto billUpdateDto, BindingResult bindingResult){
+        User existsUser = userService.getUserById(billUpdateDto.getIdUser());
+        if (existsUser == null) return ResponseEntity.notFound().build();
         Bill existsBill = billService.getByIdBill(idBill);
         if (existsBill == null) return ResponseEntity.notFound().build();
         Bill mapBill = BillUpdateMapper.mapToBill(billUpdateDto, idBill);
